@@ -1,3 +1,8 @@
+
+    // Name: Tran Le
+    // JAV1 - 1808
+    // File name: MainActivity.java
+
 package com.sunny.android.letran_ce06;
 
 import android.support.v7.app.AppCompatActivity;

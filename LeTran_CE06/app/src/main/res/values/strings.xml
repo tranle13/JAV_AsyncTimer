@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">LeTran_CE06</string>
+    <string name="separator">:</string>
+    <string name="minute_hint">min(s)</string>
+    <string name="second_hint">sec(s)</string>
+    <string name="start_button">START</string>
+    <string name="stop_button">STOP</string>
 </resources>
