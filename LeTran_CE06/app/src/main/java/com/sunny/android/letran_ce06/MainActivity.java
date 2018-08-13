@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
-    public class MainActivity extends AppCompatActivity implements TimerAsyncTask.OnFinished {
+public class MainActivity extends AppCompatActivity implements TimerAsyncTask.OnFinished {
 
     private EditText minutes_1;
     private EditText seconds_1;
