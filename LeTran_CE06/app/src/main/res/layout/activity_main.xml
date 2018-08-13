@@ -14,40 +14,73 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:orientation="horizontal"
-        android:theme="@style/ColorAndSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:theme="@style/ColorAndSize">
 
-        <EditText
-            style="@style/Edit_Text"
-            android:gravity="end"
-            android:hint="@string/minute_hint" />
+        <android.support.constraint.ConstraintLayout
+            style="@style/ConstraintLayout">
+
+            <EditText
+                android:id="@+id/etx_Minutes"
+                style="@style/Text"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:hint="@string/minute_hint"/>
+
+            <TextView
+                android:visibility="invisible"
+                android:id="@+id/txt_Minutes"
+                style="@style/Text"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </android.support.constraint.ConstraintLayout>
+
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.02"
             android:gravity="center"
+            android:layout_gravity="center"
             android:text="@string/separator"
             android:textStyle="bold" />
 
-        <EditText
-            style="@style/Edit_Text"
-            android:gravity="start"
-            android:hint="@string/second_hint" />
+        <android.support.constraint.ConstraintLayout
+            style="@style/ConstraintLayout">
+
+            <EditText
+                android:id="@+id/etx_Seconds"
+                style="@style/Text.Seconds"
+                android:hint="@string/second_hint"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:visibility="invisible"
+                android:id="@+id/txt_Seconds"
+                style="@style/Text.Seconds"
+                android:layout_marginStart="5dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </android.support.constraint.ConstraintLayout>
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:id="@+id/btn_Start"
+        style="@style/Button"
         android:text="@string/start_button"
-        android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
@@ -60,14 +93,9 @@
         app:layout_constraintGuide_percent="0.5" />
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="8dp"
+        android:id="@+id/btn_Stop"
+        style="@style/Button.Stop"
         android:text="@string/stop_button"
-        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
