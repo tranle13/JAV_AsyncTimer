@@ -14,7 +14,7 @@ import android.widget.Toast;
 public class TimerAsyncTask extends AsyncTask<Integer, Float, Float> {
 
     static final private String TAG = "New Day";
-    static final private long SLEEP = 500;
+    static final private long SLEEP = 200;
 
     final private Context hostContext;
     final private OnFinished finishedInterface;
@@ -45,28 +45,20 @@ public class TimerAsyncTask extends AsyncTask<Integer, Float, Float> {
             return 0.0f;
         }
         Long startTime = System.currentTimeMillis();
+        Long firstStartTime = startTime;
         Float remainTime = (float)integers[0];
-        Float typedTime = remainTime;
 
         while (remainTime > 0 && !isCancelled()) {
-            try {
-                Thread.sleep(SLEEP);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
 
-            Long currentTime = System.currentTimeMillis();
-
-            if (currentTime - startTime >= 1000) {
-                startTime = currentTime;
-                remainTime--;
+            Long current = System.currentTimeMillis();
+            if (current - startTime >= 1000) {
+                remainTime = remainTime - (current - startTime)/1000f;
+                startTime = current;
                 publishProgress(remainTime);
             }
-
-            Log.i(TAG, "doInBackground: "+remainTime+" passed time: "+currentTime);
         }
 
-        return typedTime - remainTime;
+        return (System.currentTimeMillis() - firstStartTime)/1000f;
     }
 
     // Code to update UI while background does the calculation
@@ -87,6 +79,8 @@ public class TimerAsyncTask extends AsyncTask<Integer, Float, Float> {
         if (finishedInterface != null) {
             finishedInterface.onFinished();
             buildDialog(0, aFloat);
+
+            Log.i(TAG, "onPostExecute: "+aFloat);
         }
     }
 
@@ -96,6 +90,7 @@ public class TimerAsyncTask extends AsyncTask<Integer, Float, Float> {
         if (finishedInterface != null) {
             finishedInterface.onCancelled();
             buildDialog(1, aFloat);
+            Log.i(TAG, "onCancelled: "+aFloat);
         }
     }
 

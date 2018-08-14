@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements TimerAsyncTask.On
                     feedback.cancel();
                 }
 
-                if (afterMin.length() == 0 && afterSec.length() == 0) {
+                if (afterMin.length() == 0 && afterSec.length() == 0 || beforeMin.isEmpty() || beforeSec.isEmpty()) {
                     feedback = Toast.makeText(MainActivity.this, R.string.toast_empty_text, Toast.LENGTH_SHORT);
                     feedback.show();
                 } else {
@@ -103,36 +103,31 @@ public class MainActivity extends AppCompatActivity implements TimerAsyncTask.On
 
     @Override
     public void onFinished() {
-        start.setEnabled(true);
-        stop.setEnabled(false);
-        minutes_1.setText("00");
-        minutes_1.setVisibility(View.VISIBLE);
-        minutes_2.setText("");
-        minutes_2.setVisibility(View.INVISIBLE);
-        seconds_1.setText("00");
-        seconds_1.setVisibility(View.VISIBLE);
-        seconds_2.setText("");
-        seconds_2.setVisibility(View.INVISIBLE);
+        reset();
     }
 
     @Override
     public void onCancelled() {
-        start.setEnabled(true);
-        stop.setEnabled(false);
-        minutes_1.setText("00");
-        minutes_1.setVisibility(View.VISIBLE);
-        minutes_2.setText("");
-        minutes_2.setVisibility(View.INVISIBLE);
-        seconds_1.setText("00");
-        seconds_1.setVisibility(View.VISIBLE);
-        seconds_2.setText("");
-        seconds_2.setVisibility(View.INVISIBLE);
-
+        reset();
     }
 
     @Override
     public void onUpdate(Integer[] currentTime) {
         minutes_2.setText(String.format(Locale.getDefault(), "%02d", currentTime[0]));
         seconds_2.setText(String.format(Locale.getDefault(), "%02d", currentTime[1]));
+    }
+
+    // Function to reset EditTexts, TextViews and Buttons
+    private void reset() {
+        start.setEnabled(true);
+        stop.setEnabled(false);
+        minutes_1.setText("00");
+        minutes_1.setVisibility(View.VISIBLE);
+        minutes_2.setText("");
+        minutes_2.setVisibility(View.INVISIBLE);
+        seconds_1.setText("00");
+        seconds_1.setVisibility(View.VISIBLE);
+        seconds_2.setText("");
+        seconds_2.setVisibility(View.INVISIBLE);
     }
 }
