@@ -24,11 +24,8 @@ public class MainActivity extends AppCompatActivity implements TimerAsyncTask.On
     private TextView seconds_2;
     private Button start;
     private Button stop;
-
     private TimerAsyncTask timerTask = null;
-
     private Toast feedback;
-
     private static final String TAG = "In your face";
 
     @Override
