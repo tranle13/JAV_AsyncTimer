@@ -8,13 +8,11 @@ package com.sunny.android.letran_ce06;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
 
-public class TimerAsyncTask extends AsyncTask<Integer, Float, Float> {
+class TimerAsyncTask extends AsyncTask<Integer, Float, Float> {
 
-    static final private String TAG = "New Day";
-    static final private long SLEEP = 200;
+    static final private long SLEEP = 210;
 
     final private Context hostContext;
     final private OnFinished finishedInterface;
@@ -45,20 +43,23 @@ public class TimerAsyncTask extends AsyncTask<Integer, Float, Float> {
             return 0.0f;
         }
         Long startTime = System.currentTimeMillis();
-        Long firstStartTime = startTime;
-        Float remainTime = (float)integers[0];
+        Float initialInputTime = (float)integers[0];
+        Float remain = initialInputTime;
 
-        while (remainTime > 0 && !isCancelled()) {
+        while (remain > 0 && !isCancelled()) {
+
+            try {
+                Thread.sleep(SLEEP);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             Long current = System.currentTimeMillis();
-            if (current - startTime >= 1000) {
-                remainTime = remainTime - (current - startTime)/1000f;
-                startTime = current;
-                publishProgress(remainTime);
-            }
+            remain = initialInputTime - (current - startTime)/1000f;
+            publishProgress(remain);
         }
 
-        return (System.currentTimeMillis() - firstStartTime)/1000f;
+        return (System.currentTimeMillis() - startTime)/1000f;
     }
 
     // Code to update UI while background does the calculation
@@ -66,10 +67,9 @@ public class TimerAsyncTask extends AsyncTask<Integer, Float, Float> {
     protected void onProgressUpdate(Float... values) {
         if (finishedInterface != null) {
             Integer minute = (int)Math.floor(values[0]/60);
-            Integer second = (int)Math.floor(values[0]%60);
+            Integer second = (int)Math.ceil(values[0]%60);
             Integer[] time = {minute, second};
             finishedInterface.onUpdate(time);
-            Log.i(TAG, "onProgressUpdate: "+minute+" "+second);
         }
     }
 
@@ -79,8 +79,6 @@ public class TimerAsyncTask extends AsyncTask<Integer, Float, Float> {
         if (finishedInterface != null) {
             finishedInterface.onFinished();
             buildDialog(0, aFloat);
-
-            Log.i(TAG, "onPostExecute: "+aFloat);
         }
     }
 
@@ -90,7 +88,6 @@ public class TimerAsyncTask extends AsyncTask<Integer, Float, Float> {
         if (finishedInterface != null) {
             finishedInterface.onCancelled();
             buildDialog(1, aFloat);
-            Log.i(TAG, "onCancelled: "+aFloat);
         }
     }
 

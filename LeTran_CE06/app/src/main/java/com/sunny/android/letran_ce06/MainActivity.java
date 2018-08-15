@@ -7,7 +7,6 @@ package com.sunny.android.letran_ce06;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,7 +25,6 @@ public class MainActivity extends AppCompatActivity implements TimerAsyncTask.On
     private Button stop;
     private TimerAsyncTask timerTask = null;
     private Toast feedback;
-    private static final String TAG = "In your face";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements TimerAsyncTask.On
                         timerTask = new TimerAsyncTask(MainActivity.this, MainActivity.this);
                         timerTask.execute(totalSeconds);
 
-                        Log.i(TAG, "Minutes: "+numOfMin+", seconds: "+numOfSec);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -121,11 +118,11 @@ public class MainActivity extends AppCompatActivity implements TimerAsyncTask.On
     private void reset() {
         start.setEnabled(true);
         stop.setEnabled(false);
-        minutes_1.setText("00");
+        minutes_1.setText(R.string.empty_time);
         minutes_1.setVisibility(View.VISIBLE);
         minutes_2.setText("");
         minutes_2.setVisibility(View.INVISIBLE);
-        seconds_1.setText("00");
+        seconds_1.setText(R.string.empty_time);
         seconds_1.setVisibility(View.VISIBLE);
         seconds_2.setText("");
         seconds_2.setVisibility(View.INVISIBLE);
